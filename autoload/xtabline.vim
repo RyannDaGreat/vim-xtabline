@@ -460,7 +460,12 @@ augroup plugin-xtabline
   if has('nvim')
     autocmd TermOpen     * call s:Do('terminal')
   else
-    autocmd TerminalOpen * call s:Do('terminal')
+    " Ryan: This errored on workbench in eyeline 
+    " Same error as: https://github.com/vim-airline/vim-airline/issues/1829
+    " Solved via https://chat.openai.com/share/a4857cb3-6a08-4b60-a4df-a89fbca330e5
+    if exists('#TerminalOpen')
+      autocmd TerminalOpen * call s:Do('terminal')
+    endif
   endif
 
   if exists('##DirChanged')
