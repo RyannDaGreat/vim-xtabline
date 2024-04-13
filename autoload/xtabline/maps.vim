@@ -4,7 +4,7 @@
 
 fun! s:base_mappings() abort
   if !hasmapto('<Plug>(XT-Select-Buffer)')
-    silent! nmap <BS> <Plug>(XT-Select-Buffer)
+    " silent! nmap <BS> <Plug>(XT-Select-Buffer)
   endif
 
   fun! s:mapkey_(keys, cmd) abort
