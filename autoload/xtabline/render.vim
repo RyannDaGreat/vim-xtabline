@@ -512,8 +512,19 @@ endfun "}}}
 " Corner labels
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+function! GetSessionTitle()
+    if exists('$RP_SESSION_TITLE')
+        return '[RP: ' . $RP_SESSION_TITLE . ']'
+    elseif exists('$RP_SYS_EXECUTABLE')
+        return '[RP]'
+    else
+        return '[Vim]'
+    endif
+endfunction
+
 fun! s:format_right_corner() abort
   " Label for the upper right corner. {{{1
+  let sessiontitle = GetSessionTitle()
   let N = tabpagenr()
 
   " tab-local/window-local working directory indicator
@@ -539,7 +550,7 @@ fun! s:format_right_corner() abort
     let icon  = "%#XTNumSel# " . s:get_tab_icon(N, 1)
     let mod   = s:tab_mod_flag(N, 1)
     let label = s:right_corner_label()
-    return printf("%s%s %s %s", icon, hi, label, mod) . lcd
+    return printf("%s %s%s %s %s", sessiontitle, icon, hi, label, mod) . lcd
 
   else
     " tab number in form n/N, plus tab name or cwd
@@ -548,7 +559,7 @@ fun! s:format_right_corner() abort
     let icon  = s:get_tab_icon(N, 1)
     let mod   = s:tab_mod_flag(N, 1)
     let label = s:right_corner_label()
-    return printf("%s%s %s%s %s", nr, hi, icon, label, mod) . lcd
+    return printf("%s %s%s %s%s %s", sessiontitle, nr, hi, icon, label, mod) . lcd
   endif
 endfun "}}}
 
