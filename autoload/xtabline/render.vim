@@ -514,11 +514,11 @@ endfun "}}}
 
 function! GetSessionTitle()
     if exists('$RP_SESSION_TITLE')
-        return '[RP: ' . $RP_SESSION_TITLE . ']'
+        return ' [RP: ' . trim($RP_SESSION_TITLE) . ']'
     elseif exists('$RP_SYS_EXECUTABLE')
-        return '[RP]'
+        return ' [RP]'
     else
-        return '[Vim]'
+        return ' [Vim]'
     endif
 endfunction
 
@@ -550,6 +550,9 @@ fun! s:format_right_corner() abort
     let icon  = "%#XTNumSel# " . s:get_tab_icon(N, 1)
     let mod   = s:tab_mod_flag(N, 1)
     let label = s:right_corner_label()
+    "NEW:
+    return printf("%s%s", hi, sessiontitle) . lcd
+    "OLD:
     return printf("%s %s%s %s %s", sessiontitle, icon, hi, label, mod) . lcd
 
   else
@@ -559,6 +562,9 @@ fun! s:format_right_corner() abort
     let icon  = s:get_tab_icon(N, 1)
     let mod   = s:tab_mod_flag(N, 1)
     let label = s:right_corner_label()
+    "NEW:
+    return printf("%s%s", hi,sessiontitle) . lcd
+    "OLD:
     return printf("%s %s%s %s%s %s", sessiontitle, nr, hi, icon, label, mod) . lcd
   endif
 endfun "}}}
