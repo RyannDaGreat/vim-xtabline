@@ -514,7 +514,10 @@ endfun "}}}
 
 function! GetSessionTitle()
     if exists('$RP_SESSION_TITLE')
-        return ' [RP: ' . trim($RP_SESSION_TITLE) . ']'
+        return ' [RP: ' . $RP_SESSION_TITLE . ']'
+
+        "Used to have trim, equivalent of python str.strip() but it throws errors in some vims that dont have it implemented lol
+        " return ' [RP: ' . trim($RP_SESSION_TITLE) . ']'
     elseif exists('$RP_SYS_EXECUTABLE')
         return ' [RP]'
     else
